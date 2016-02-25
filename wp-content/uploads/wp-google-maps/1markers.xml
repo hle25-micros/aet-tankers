@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<markers>
+  <marker>
+    <marker_id>1</marker_id>
+    <map_id>1</map_id>
+    <title></title>
+    <address>11 North Buona Vista Drive Singapore</address>
+    <desc></desc>
+    <pic></pic>
+    <icon></icon>
+    <linkd></linkd>
+    <lat>1.305203</lat>
+    <lng>103.791711</lng>
+    <anim>2</anim>
+    <retina>0</retina>
+    <category>0</category>
+    <infoopen>1</infoopen>
+  </marker>
+  <marker>
+    <marker_id>2</marker_id>
+    <map_id>1</map_id>
+    <title></title>
+    <address>1900 West Loop South Freeway, Houston, TX, United States</address>
+    <desc></desc>
+    <pic></pic>
+    <icon></icon>
+    <linkd></linkd>
+    <lat>29.7474609</lat>
+    <lng>-95.45766400000002</lng>
+    <anim>0</anim>
+    <retina>0</retina>
+    <category></category>
+    <infoopen>1</infoopen>
+  </marker>
+  <marker>
+    <marker_id>3</marker_id>
+    <map_id>1</map_id>
+    <title></title>
+    <address>1 Harbour Exchange Square, London, United Kingdom</address>
+    <desc></desc>
+    <pic></pic>
+    <icon></icon>
+    <linkd></linkd>
+    <lat>51.4992031</lat>
+    <lng>-0.014257300000053874</lng>
+    <anim>0</anim>
+    <retina>0</retina>
+    <category></category>
+    <infoopen>1</infoopen>
+  </marker>
+  <marker>
+    <marker_id>4</marker_id>
+    <map_id>1</map_id>
+    <title></title>
+    <address>1301 Pelican Island Causeway, Galveston, TX, United States</address>
+    <desc></desc>
+    <pic></pic>
+    <icon></icon>
+    <linkd></linkd>
+    <lat>29.305321</lat>
+    <lng>-94.826648</lng>
+    <anim>0</anim>
+    <retina>0</retina>
+    <category></category>
+    <infoopen>1</infoopen>
+  </marker>
+</markers>
