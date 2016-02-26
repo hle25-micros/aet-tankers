@@ -1,22 +1,3 @@
-/*
-Theme Name: Himalayas
-Theme URI: http://themegrill.com/themes/himalayas/
-Author: ThemeGrill
-Author URI: http://themegrill.com
-Description: Himalayas is modern style free one page parallax responsive WordPress theme. Inform your visitors all they need to know right from your home page without requiring to go to the other pages. Himalayas can be used for business, portfolio, corporate, agency, photography, freelancers and almost any kind of sites. Get free support at http://themegrill.com/support-forum/ and check the demo at http://demo.themegrill.com/himalayas/
-Version: 1.0.5
-License: GNU General Public License, version 3 (GPLv3)
-License URI: http://www.gnu.org/licenses/gpl-3.0.txt
-Tags: light, white, one-column, two-columns, right-sidebar, left-sidebar, fluid-layout, responsive-layout, custom-menu, featured-images, sticky-post, translation-ready, threaded-comments, theme-options
-Text Domain: himalayas
-
-Resetting and rebuilding styles have been helped along thanks to the fine work of
-Eric Meyer http://meyerweb.com/eric/tools/css/reset/index.html
-along with Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
-and Blueprint http://www.blueprintcss.org/
-*/
-
-
 /* =Reset
 -------------------------------------------------------------- */
 
@@ -1199,6 +1180,10 @@ Header css
     padding: 0 5px;
 }
 
+#masthead .logo a img {
+	width: 140px;
+}
+
 #header-text {
     float: left;
     margin-left: 30px;
@@ -1245,6 +1230,7 @@ Header css
 }
 
 #masthead .header-wrapper.stick .logo img {
+	width: 150px;
     -webkit-transform: scale(0.6);
     -moz-transform: scale(0.6);
     -ms-transform: scale(0.6);
@@ -1299,7 +1285,7 @@ Menu css
 
 .header-wrapper.stick #site-navigation .menu li a,
 .header-wrapper.no-slider #site-navigation .menu li a {
-    color: #ffffff;
+    color: #333333;
 }
 
 #site-navigation .menu li:hover > a,
@@ -1427,7 +1413,7 @@ Menu css
 }
 
 .search-box {
-    background: rgba(50, 196, 209, 0.8) none repeat scroll 0 0;
+    background: rgba(119, 119, 118, 0.8) none repeat scroll 0 0;
     height: 0;
     left: 0;
     opacity: 0;
@@ -1492,7 +1478,7 @@ Menu css
 .header-wrapper.stick .search-icon:hover:before,
 .header-wrapper.no-slider .search-icon,
 .header-wrapper.no-slider .search-icon:hover:before {
-    color: #ffffff;
+    color: #333333;
     -webkit-transition: color 0.5s ease;
     -moz-transition: color 0.5s ease;
     -ms-transition: color 0.5s ease;
@@ -1527,12 +1513,12 @@ Non stick header with slider
 }
 
 .home.transparent .header-wrapper {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(222, 255, 255, 0.95);
 }
 
 .transparent .header-wrapper.stick,
 .non-transparent .header-wrapper.stick {
-    background: #333333;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 0;
 }
 
@@ -1692,7 +1678,7 @@ Slider css
 }
 
 .caption-title {
-    border: 4px solid rgba(255, 255, 255, 0.7);
+	/*border: 4px solid rgba(255, 255, 255, 0.7);*/
     color: #ffffff;
     font-size: 50px;
     font-weight: 900;
@@ -1717,6 +1703,7 @@ Slider css
 }
 
 .caption-title span {
+	line-height: 1.2em;
     display: block;
     padding: 26px 40px;
     position: relative;
@@ -1749,7 +1736,7 @@ Slider css
     top: 0;
     left: 0;
     content: "";
-    background: url(images/slider-title-new-arrow.png) no-repeat scroll 0 center;
+    /*background: url(images/slider-title-new-arrow.png) no-repeat scroll 0 center;*/
     width: 4px;
     height: 100%;
 }
@@ -1814,8 +1801,8 @@ Slider css
 	background: rgba(0, 0, 0, 0) url("images/slider-arrow.png") no-repeat scroll 0 0;
     color: transparent;
     font: 0px/0 a;
-    height: 48px;
-    left: -23px;
+    height: 24px;
+    left: -24px;
     position: absolute;
     top: 50%;
     -webkit-transition: all 0.5s ease;
@@ -1823,13 +1810,14 @@ Slider css
     -ms-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    width: 23px;
+    width: 24px;
     z-index: 99;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
+	opacity: 0.85;
 }
 
 .slider-wrapper .bx-next {
@@ -1838,7 +1826,7 @@ Slider css
     -ms-transform: rotate(180deg) translateY(50%);
     -o-transform: rotate(180deg) translateY(50%);
     transform: rotate(180deg) translateY(50%);
-    right: -23px;
+    right: -24px;
     left: auto;
 }
 
@@ -2080,12 +2068,13 @@ Video background css
     font-family: 'Crimson Text', serif;
     text-transform: uppercase;
     font-weight: 700;
+	padding: 0 0 0 150px;
 }
 
 .main-title:before,
 .main-title:after {
     position: absolute;
-    left: -148px;
+    left: 0;
     top: 50%;
     margin-top: -1px;
     height: 2px;
@@ -2100,7 +2089,7 @@ Video background css
 }
 
 .section-title-wrapper {
-    text-align: center;
+    text-align: left;
     margin-bottom: 100px;
 }
 
@@ -2360,7 +2349,7 @@ Video background css
 --------------------------------------------------------------*/
 
 .widget_call_to_action_block .parallax-overlay {
-    background: rgba(50, 196, 209, 0.9);
+    background: rgba(119, 119, 118, 0.9);
 }
 
 .cta-text-content {
@@ -2645,7 +2634,7 @@ Video background css
 }
 
 .blog-view:hover {
-    background: #46B3BD;
+    background: #de3831;
     color: #ffffff;
 }
 
@@ -3143,8 +3132,8 @@ Video background css
 --------------------------------------------------------------*/
 
 .scrollup {
-    background-color: #de3831;
-    border-radius: 25px;
+	background: #de3831 none repeat scroll 0 0;
+	border-bottom: 2px solid #980a0a;
     bottom: 30px;
     color: #ffffff;
     display: none;
@@ -3155,6 +3144,7 @@ Video background css
     right: 30px;
     text-align: center;
     width: 40px;
+	z-index: 9999;
 }
 
 .scrollup:hover,
@@ -3637,7 +3627,7 @@ article {
     .caption-title {
         font-size: 40px;
         line-height: 40px;
-        width: 64%;
+        width: 60%;
         font-weight: 700;
     }
     .caption-sub {
