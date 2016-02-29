@@ -926,14 +926,14 @@ class himalayas_featured_posts_widget extends WP_Widget {
 
                               <?php if( has_category() ) { ?>
                                  <span>
-                                    <?php _e( 'Posted in ', 'himalayas' );
-                                    the_category(', '); ?>
+                                    <?php _e( 'Posted ', 'himalayas' );
+                                    ?>
                                  </span>
                               <?php } ?>
-                              <span>
+                              <!--<span>
                                  <?php _e( 'by ', 'himalayas' ); ?>
                                  <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" title="<?php echo get_the_author(); ?>"><?php echo esc_html( get_the_author() ); ?></a>
-                              </span>
+                              </span>-->
 
                               <span>
                                  <?php _e( 'on ', 'himalayas' );

@@ -1139,6 +1139,12 @@ Responsive grid for pages
     width: 28.33%;
 }
 
+.team-content-wrapper .tg-column-3 {
+    float: left;
+    margin-left: 4%;
+    width: 16%;
+}
+
 .tg-column-4 {
     width: 18%;
     margin-left: 5%;
@@ -2057,7 +2063,7 @@ Video background css
 --------------------------------------------------------------*/
 
 .section-wrapper {
-    padding: 25px 0 0 0;
+    padding: 0;
 }
 
 .main-title {
@@ -2090,7 +2096,7 @@ Video background css
 
 .section-title-wrapper {
     text-align: left;
-    margin-bottom: 100px;
+    margin: 20px 0;
 }
 
 
@@ -2156,6 +2162,7 @@ Video background css
 .parallax-section,
 .no-bg-image {
     position: relative;
+	background-color: #ffffff !important;
 }
 
 .parallax-overlay {
@@ -2358,21 +2365,22 @@ Video background css
 }
 
 .cta-text-title h2 {
-    color: #ffffff;
+    color: #777776;
+	text-align: center;
     font-family: 'roboto', sans-serif;
     font-weight: 700;
     letter-spacing: 2px;
-    text-shadow: 1px 3px 2px rgba(204, 204, 204, 0.7);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
 }
 
 .cta-text-desc {
-    color: #f4f3f3;
-    font-size: 24px;
-    letter-spacing: 1px;
-    line-height: 32px;
-    margin-top: 20px;
-    font-weight: 300;
+    color: #777776;
+	font-size: 1em;
+	letter-spacing: 1px;
+	line-height: 25px;
+	margin-top: 20px;
+	font-weight: 300;
 }
 
 .section-wrapper.cta-text-section-wrapper {
@@ -2415,7 +2423,6 @@ Video background css
 
 .cta-text-style-2 .cta-text-content {
     float: none;
-    text-align: center;
     width: 100%;
 }
 
@@ -2433,7 +2440,7 @@ Video background css
 }
 
 .cta-text-style-2 .section-wrapper.cta-text-section-wrapper {
-    padding: 70px 0;
+    padding: 20px 0 0 0;
 }
 
 
@@ -2668,12 +2675,12 @@ Video background css
 --------------------------------------------------------------*/
 
 .widget_our_team_block .parallax-overlay {
-    background: rgba(0, 0, 0, 0.66);
+    background: rgba(255, 255, 255, 1);
 }
 
 .widget_our_team_block .main-title,
 .widget_our_team_block .sub-title {
-    color: #ffffff;
+    color: #333333;
 }
 
 .team-img-wrapper .team-name,
@@ -2681,9 +2688,10 @@ Video background css
     background: #f6f6f6 none repeat scroll 0 0;
     font-weight: 700;
     letter-spacing: 1px;
-    padding: 15px 0;
+    padding: 12px 10px 17px 10px;
     text-align: center;
     text-transform: uppercase;
+	height: 67px;
 }
 
 .team-block {
@@ -2715,7 +2723,7 @@ Video background css
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     background: #de3831;
-    padding: 20px 39px 0;
+    padding: 20px 8px 0;
     height: 100%;
     width: 100%;
 }
@@ -2743,8 +2751,8 @@ Video background css
     font-weight: 300;
     position: relative;
     text-align: center;
-    margin-bottom: 40px;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-top: 0;
     text-transform: capitalize;
 }
 
@@ -2762,7 +2770,7 @@ Video background css
 .team-content {
     color: #ffffff;
     font-weight: 300;
-    margin: 35px 0;
+    margin: 0 0 5px 0;
     text-align: center;
 }
 
@@ -2960,7 +2968,7 @@ Video background css
 --------------------------------------------------------------*/
 
 #colophon.footer-with-widget {
-    margin: 60px 0 0;
+    margin: 0;
 }
 
 #colophon.footer #top-footer {
@@ -2979,7 +2987,7 @@ Video background css
 
 #top-footer {
     background: #333333 none repeat scroll 0 0;
-    padding: 100px 0 60px;
+    padding: 20px 0;
 }
 
 .widget ul.contact-list li::before {
@@ -4248,6 +4256,12 @@ article {
     .blog-content-wrapper .tg-column-3 {
         width: 100%;
     }
+	
+	    .team-content-wrapper .tg-column-3 {
+margin-left: 4%;
+width: 16%;
+		}
+		
     .cta-text-style-2 .cta-text-btn {
         width: 50%;
     }
