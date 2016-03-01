@@ -1287,6 +1287,11 @@ Menu css
     color: #333333;
     font-weight: 300;
     display: block;
+	text-align: left;
+}
+
+#site-navigation .menu .sub-menu li a {
+	font-size: 0.95em;
 }
 
 .header-wrapper.stick #site-navigation .menu li a,
@@ -3000,6 +3005,10 @@ Video background css
 #top-footer .widget ul li {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     line-height: 40px;
+}
+
+#top-footer .widget ul li .sub-menu {
+	display: none;
 }
 
 #top-footer .widget ul.contact-list li {
