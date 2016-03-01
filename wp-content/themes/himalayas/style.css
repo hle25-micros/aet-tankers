@@ -1316,7 +1316,7 @@ Menu css
 
 #site-navigation ul.sub-menu {
     background: #333333 none repeat scroll 0 0;
-    width: 200px;
+    width: 235px;
     opacity: 0;
     padding: 0;
     position: absolute;
@@ -1337,11 +1337,11 @@ Menu css
 }
 
 .home #site-navigation ul.sub-menu {
-    background: rgba(239, 238, 238, 0.2) none repeat scroll 0 0;
+    background: rgba(222, 255, 255, 0.95) none repeat scroll 0 0;
 }
 
 .home .stick #site-navigation ul.sub-menu,.home.non-transparent  #site-navigation ul.sub-menu, .home.non-stick    #site-navigation ul.sub-menu{
-    background: #333333;
+    background: rgba(255, 255, 255, 0.95);
 }
 #site-navigation ul li:hover > ul.sub-menu,
 .home #site-navigation ul li:hover > ul.sub-menu {
@@ -1524,7 +1524,7 @@ Non stick header with slider
 
 .transparent .header-wrapper.stick,
 .non-transparent .header-wrapper.stick {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 0;
 }
 
@@ -2074,13 +2074,12 @@ Video background css
     font-family: 'Crimson Text', serif;
     text-transform: uppercase;
     font-weight: 700;
-	padding: 0 0 0 150px;
 }
 
 .main-title:before,
 .main-title:after {
     position: absolute;
-    left: 0;
+    left: -148px;
     top: 50%;
     margin-top: -1px;
     height: 2px;
@@ -2095,7 +2094,7 @@ Video background css
 }
 
 .section-title-wrapper {
-    text-align: left;
+    text-align: center;
     margin: 20px 0;
 }
 
