@@ -4,6 +4,7 @@ class marker_groupsViewGmp extends viewGmp {
 		frameGmp::_()->getModule('templates')->loadJqGrid();
 		frameGmp::_()->addScript('admin.mgr.list', $this->getModule()->getModPath() . 'js/admin.marker_groups.list.js');
 		frameGmp::_()->addJSVar('admin.mgr.list', 'mgrTblDataUrl', uriGmp::mod('marker_groups', 'getListForTbl', array('reqType' => 'ajax')));
+		frameGmp::_()->addStyle('admin.mgr', $this->getModule()->getModPath() . 'css/admin.marker.groups.css');
 
 		$this->assign('addNewLink', frameGmp::_()->getModule('options')->getTabUrl('marker_groups_add_new'));
 		return parent::getContent('mgrAdmin');

@@ -23,6 +23,12 @@ function gmpInitMapOnPage(mapData) {
 		}
 		newMap.markersRefresh();
 	}
+	if(mapData.shapes && mapData.shapes.length) {
+		mapData.shapes = _gmpPrepareShapesList( mapData.shapes );
+		for(var z = 0; z < mapData.shapes.length; z++) {
+			var newShape = newMap.addShape( mapData.shapes[z] );
+		}
+	}
 	if(newMap.getRawMapInstance().map_display_mode == 'popup') {
 		var img = jQuery('.map-preview-img-container').find('img');
 

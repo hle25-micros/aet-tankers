@@ -164,8 +164,16 @@ class installerGmp {
 					`id` int(11) NOT NULL AUTO_INCREMENT,
 					`title` varchar(250) CHARACTER SET utf8,
 					`description` text CHARACTER SET utf8,
+					`params` text CHARACTER SET utf8,
+					`sort_order` tinyint(1) NOT NULL DEFAULT '0',
 				 PRIMARY KEY (`id`)
 				  ) DEFAULT CHARSET=utf8");
+		}
+		if(!dbGmp::exist($wpPrefix.GMP_DB_PREF."marker_groups", 'params')) {
+			dbGmp::query("ALTER TABLE @__marker_groups ADD params text CHARACTER SET utf8;");
+		}
+		if(!dbGmp::exist($wpPrefix.GMP_DB_PREF."marker_groups", 'sort_order')) {
+			dbGmp::query("ALTER TABLE @__marker_groups ADD sort_order tinyint(1) NOT NULL DEFAULT '0';");
 		}
 		$markerGroupsClearedInvalid = get_option($wpPrefix. GMP_DB_PREF. 'mg_cleared_inv', 0);
 		if(!$markerGroupsClearedInvalid) {

@@ -3,7 +3,7 @@ class gmapModelGmp extends modelGmp {
 	function __construct() {
 		$this->_setTbl('maps');
 	}
-	public function getAllMaps($d = array(), $withMarkers = false, $markersWithGroups = false){
+	public function getAllMaps($d = array(), $withMarkers = false, $markersWithGroups = false, $withShapes = false){
 		if(isset($d['limitFrom']) && isset($d['limitTo']))
 			frameGmp::_()->getTable('maps')->limitFrom($d['limitFrom'])->limitTo($d['limitTo']);
 		if(isset($d['orderBy']) && !empty($d['orderBy'])) {
@@ -17,6 +17,9 @@ class gmapModelGmp extends modelGmp {
 			if($withMarkers) {
 				$map['markers'] = $markerModule->getModel()->getMapMarkers($map['id'], $markersWithGroups);
 			}
+			if($withShapes && frameGmp::_()->getModule('shape')) {
+				$map['shapes'] = frameGmp::_()->getModule('shape')->getModel()->getMapShapes($map['id']);
+			}
 			$map = $this->_afterSimpleGet( $map );
 		}
 		return $maps;
@@ -24,6 +27,10 @@ class gmapModelGmp extends modelGmp {
 	private function _afterSimpleGet($map) {
 		if($map['params'] && isset($map['params']['map_stylization'])) {
 			$map['params']['map_stylization_data'] = $this->getModule()->getStylizationByName( $map['params']['map_stylization'] );
+		}
+		if($map['params'] && isset($map['params']['center_on_cur_user_pos_icon'])) {
+			$icon_data = frameGmp::_()->getModule('icons')->getModel()->getIconFromId($map['params']['center_on_cur_user_pos_icon']);
+			$map['params']['center_on_cur_user_pos_icon_path'] = $icon_data['path'];
 		}
 		// This is for posibility to show multy maps with same ID on one page
 		$map['original_id'] = $map['id'];
@@ -127,7 +134,7 @@ class gmapModelGmp extends modelGmp {
 		}
 		return false;
 	}
-	public function getMapById($id = false, $withMarkers = true, $withGroups = false){
+	public function getMapById($id = false, $withMarkers = true, $withGroups = false, $withShapes = true){
 		if(!$id){
 			return false;
 		}
@@ -135,6 +142,9 @@ class gmapModelGmp extends modelGmp {
 		if(!empty($map)){
 			if($withMarkers){
 			   $map['markers'] = frameGmp::_()->getModule('marker')->getModel()->getMapMarkers($map['id'], $withGroups);				
+			}
+			if($withShapes && frameGmp::_()->getModule('shape')) {
+				$map['shapes'] = frameGmp::_()->getModule('shape')->getModel()->getMapShapes($map['id']);
 			}
 			$map['html_options'] = utilsGmp::unserialize($map['html_options']);				
 			$map['params']= utilsGmp::unserialize($map['params']);
@@ -205,6 +215,26 @@ class gmapModelGmp extends modelGmp {
 			$i = 1;
 			foreach($markersList as $mId) {
 				frameGmp::_()->getTable('marker')->update(array(
+					'sort_order' => $i++
+				), array(
+					'id' => $mId,
+				));
+			}
+		}
+		return true;
+	}
+	public function resortShapes($d = array()) {
+		if(!frameGmp::_()->getModule('shape')) 
+			return true;	// Why always true?
+		$mapId = isset($d['map_id']) ? (int) $d['map_id'] : 0;
+		$shapesList = isset($d['shapes_list']) ? $d['shapes_list'] : false;
+		if(!$shapesList && $mapId) {
+			$shapesList = frameGmp::_()->getModule('shape')->getModel()->getMapShapesIds($mapId);
+		}
+		if($shapesList) {
+			$i = 1;
+			foreach($shapesList as $mId) {
+				frameGmp::_()->getTable('shape')->update(array(
 					'sort_order' => $i++
 				), array(
 					'id' => $mId,

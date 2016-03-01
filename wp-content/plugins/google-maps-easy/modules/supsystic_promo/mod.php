@@ -228,4 +228,15 @@ class supsystic_promoGmp extends moduleGmp {
 			echo $this->getLoveLink();
 		}
 	}
+	public function addPromoMapTabs() {
+		$tabs = array();
+		if(!$this->isPro()) {
+			$tabs['gmpShapeTab'] = array(
+				'label' => __('Figures', GMP_LANG_CODE),
+				'content' => $this->getView()->getPromoTabContent('shapes&utm_campaign=googlemaps'),
+				'promo' => true,
+			);
+		}
+		return $tabs;
+	}
 }

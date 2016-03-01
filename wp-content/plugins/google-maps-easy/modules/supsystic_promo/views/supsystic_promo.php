@@ -76,4 +76,8 @@ class supsystic_promoViewGmp extends viewGmp {
             'PHP CURL Support' => array('value' => extension_loaded('curl') ? __('Yes', GMP_LANG_CODE) : __('No', GMP_LANG_CODE), 'error' => !extension_loaded('curl')),
 		);
 	}
+	public function getPromoTabContent($tabCode) {
+		$this->assign('tabCode', $tabCode);
+		return parent::getContent('adminPromoTabContent');
+	}
 }

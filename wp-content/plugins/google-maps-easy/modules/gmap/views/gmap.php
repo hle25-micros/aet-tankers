@@ -143,31 +143,48 @@ class gmapViewGmp extends viewGmp {
 		return parent::getContent('gmapAdmin');
 	}
 	public function getEditMap($id = 0) {
+		$isPro = frameGmp::_()->getModule('supsystic_promo')->isPro();
 		$gMapApiParams = array('language' => '');
+		$allMarkerGroupsList = frameGmp::_()->getModule('marker_groups')->getModel()->getAllMarkerGroups();
+		$allStylizationsList = $this->getModule()->getStylizationsList();
+
 		frameGmp::_()->getModule('templates')->loadJqGrid();
 		frameGmp::_()->addScript('jquery-ui-sortable');
 		frameGmp::_()->addScript('wp.tabs', GMP_JS_PATH. 'wp.tabs.js');
 		frameGmp::_()->addScript('admin.gmap', $this->getModule()->getModPath(). 'js/admin.gmap.js');
 		frameGmp::_()->addScript('admin.gmap.edit', $this->getModule()->getModPath(). 'js/admin.gmap.edit.js');
+		frameGmp::_()->addScript('admin.marker.edit', frameGmp::_()->getModule('marker')->getModPath(). 'js/admin.marker.edit.js');
+
 		frameGmp::_()->addStyle('admin.gmap', $this->getModule()->getModPath(). 'css/admin.gmap.css');
+
 		frameGmp::_()->addJSVar('admin.gmap.edit', 'gmpMapShortcode', GMP_SHORTCODE);
-		$allStylizationsList = $this->getModule()->getStylizationsList();
-		$allMarkerGroupsList = frameGmp::_()->getModule('marker_groups')->getModel()->getAllMarkerGroups();
 		frameGmp::_()->addJSVar('admin.gmap.edit', 'gmpAllStylizationsList', $allStylizationsList);
 		frameGmp::_()->addJSVar('admin.gmap.edit', 'gmpMapsListUrl', frameGmp::_()->getModule('options')->getTabUrl('gmap'));
-		frameGmp::_()->addJSVar('admin.gmap.edit', 'gmpMarkersTblDataUrl', uriGmp::mod('marker', 'getListForTbl', array('reqType' => 'ajax', 'map_id' => $id)));
-		$stylizationsForSelect = array(
-			'none' => __('None', GMP_LANG_CODE),
-		);
-		foreach($allStylizationsList as $styleName => $json) {
-			$stylizationsForSelect[ $styleName ] = $styleName;	// JSON data will be attached on js side
+
+		// jqGrid tables urls
+		$gmpMarkersTblDataUrl =  uriGmp::mod('marker', 'getListForTbl', array('reqType' => 'ajax', 'map_id' => $id));
+		frameGmp::_()->addJSVar('admin.gmap.edit', 'gmpMarkersTblDataUrl', $gmpMarkersTblDataUrl);
+		frameGmp::_()->addJSVar('admin.marker.edit', 'gmpMarkersTblDataUrl', $gmpMarkersTblDataUrl);
+
+		if($isPro) {
+			$gmpShapesTblDataUrl =  uriGmp::mod('shape', 'getListForTbl', array('reqType' => 'ajax', 'map_id' => $id));
+			frameGmp::_()->addJSVar('admin.gmap.edit', 'gmpShapesTblDataUrl', $gmpShapesTblDataUrl);
+			frameGmp::_()->addJSVar('admin.shape.edit', 'gmpShapesTblDataUrl', $gmpShapesTblDataUrl);
 		}
+
 		$markerGroupsForSelect = array(
 			'0' => __('None', GMP_LANG_CODE),
 		);
 		foreach($allMarkerGroupsList as $key => $value) {
 			$markerGroupsForSelect[ $value['id'] ] = $value['title'];
 		}
+		$stylizationsForSelect = array(
+			'none' => __('None', GMP_LANG_CODE),
+		);
+		foreach($allStylizationsList as $styleName => $json) {
+			$stylizationsForSelect[ $styleName ] = $styleName;	// JSON data will be attached on js side
+		}
+
 		$editMap = $id ? true : false;
 		if($editMap) {
 			$map = $this->getModel()->getMapById( $id );
@@ -182,7 +199,7 @@ class gmapViewGmp extends viewGmp {
 		$this->assign('icons', frameGmp::_()->getModule('icons')->getModel()->getIcons(array('fields' => 'id, path, title')));
 		$this->assign('stylizationsForSelect', $stylizationsForSelect);
 		$this->assign('positionsList', $positionsList);
-		$this->assign('isPro', frameGmp::_()->getModule('supsystic_promo')->isPro());
+		$this->assign('isPro', $isPro);
 		$this->assign('mainLink', frameGmp::_()->getModule('supsystic_promo')->getMainLink());
 		$this->assign('markerLists', $markerLists);
 		$this->assign('markerGroupsForSelect', $markerGroupsForSelect);
@@ -194,6 +211,7 @@ class gmapViewGmp extends viewGmp {
 		$params['language'] = isset($params['language']) && !empty($params['language']) ? $params['language'] : utilsGmp::getLangCode2Letter();
 		frameGmp::_()->addScript('google_maps_api', $this->getApiUrl(). '&language='. $params['language']);
 		frameGmp::_()->addScript('core.gmap', $this->getModule()->getModPath(). 'js/core.gmap.js');
+		frameGmp::_()->addScript('core.marker', frameGmp::_()->getModule('marker')->getModPath(). 'js/core.marker.js');
 		frameGmp::_()->addStyle('core.gmap', $this->getModule()->getModPath(). 'css/core.gmap.css');
 		if((isset($params['marker_clasterer']) && $params['marker_clasterer'] != 'none') || $forAdminArea) {
 			frameGmp::_()->addScript('core.markerclusterer', $this->getModule()->getModPath(). 'js/core.markerclusterer.min.js');

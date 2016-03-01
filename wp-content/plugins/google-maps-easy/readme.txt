@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/google-maps-plugin
 Tags: best google maps, best maps, bing maps, contact page map, cross-browser, custom google map, custom google maps, easy map, geo, geocoder, gmap, gmaps, google earth, google map, google map embed, google map plugin, google map shortcode, google map widget, google map WordPress, google maps for WordPress, google maps v3, google maps WordPress, googlemaps, gprs, gps, gpx, kml, latitude, loaction by address, location, longitude, map, map direction, map directions, map embed, map markers, map plugin, map point, map shortcode, map styles, maps, maps google, polygons, post map, roads, routes, simple google map, simple google map plugin, store locator, street view, wp google map, wp google maps, wp map, wp map embed
 Tested up to: 4.4.2
-Stable tag: 1.4.9
+Stable tag: 1.5.1
 
 The easiest way to create Google Map with markers, locations and clusterization. Any data on the map: text, images, videos. Custom google map marker icons
 
@@ -164,6 +164,19 @@ Copy and paste the shortcode into your post or page and Google Maps Easy will au
 6. Google Map Stylizations. Make your map unique with our Map Themes!
 
 == Changelog ==
+
+= 1.5.1 / 26.02.2016 =
+ * Fix compatibility of Shapes modules - with other modules in admin area - hot fix!
+
+
+= 1.5.0 / 22.02.2016 =
+ * Add ability to select marker for the "Center on current user location" option
+ * Add color selection and sorting for the markers categories (it is displays in custom map controls and table markers list)
+ * Fix the displaying of pagination and borders of slides for the markers' lists slider
+ * Fix of drag and drop sorting for the markers table in map admin area
+ * Fix the restriction for displaying markers in the table in map admin area
+ * Add Norwegian Language
+ * Minor issues fix
 
 = 1.4.9 / 12.02.2016 =
  * Add more flexible Markers load (lazy-load for Markers content)

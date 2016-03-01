@@ -156,36 +156,23 @@ class markerControllerGmp extends controllerGmp {
 	}
 	protected function _prepareListForTbl($data) {
 		if (!empty($data)) {
-			$iconsIds = array();
 			$markersIds = array('map_id' => $data[0]['map_id'], 'markers_list' => array());
-			foreach($data as $i => $v) {
-				// Save Markers sort order
+			foreach($data as $i => $m) {
+				$data[$i] = $this->getModel()->_afterGet($data[$i]);
+
+				// Save Marker sort order
 				$markersIds['markers_list'][] = $data[$i]['id'];
 
-				// Marker Image
-				if(!in_array($data[$i]['icon'], $iconsIds))
-					$iconsIds[] = $data[$i]['icon'];
-
-				// Marker Params
-				$data[$i]['params'] = unserialize($data[$i]['params']);
+				// Marker Icon Image
+				$icon = '<div class="egm-marker-icon"><img src="'. $data[$i]['icon_data']['path'] .'" /></div>';
+				$data[$i]['icon_img'] = preg_replace('/\s\s+/', ' ', trim($icon));
 
 				// Marker Coordinates
 				$coords = '<div class="egm-marker-latlng">'
 					. round($data[$i]['coord_x'], 2)
 					. '"N ' . round($data[$i]['coord_y'], 2)
 					. '"E</div>';
-
-				// Marker Action Butons
-				$actions = $this->getView()->getListOperations($data[$i]['id']);
-
 				$data[$i]['coords'] = preg_replace('/\s\s+/', ' ', trim($coords));
-				$data[$i]['actions'] = preg_replace('/\s\s+/', ' ', trim($actions));
-			}
-			$icon_urls = frameGmp::_()->getModule('icons')->getModel()->getIconsByIds($iconsIds);
-			foreach($data as $i => $m) {
-				$icon = '<div class="egm-marker-icon"><img src="'. $icon_urls[$data[$i]['icon']]['path'] .'" /></div>';
-				$data[$i]['icon_img'] = preg_replace('/\s\s+/', ' ', trim($icon));
-				$data[$i]['icon_data'] = $icon_urls[$data[$i]['icon']];
 			}
 			frameGmp::_()->getModule('gmap')->getModel()->resortMarkers($markersIds);
 		}

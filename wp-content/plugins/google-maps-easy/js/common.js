@@ -195,6 +195,25 @@ function toeStrFirstUp(str) {
 	var f = str.charAt(0).toUpperCase();
 	return f + str.substr(1);
 }
+function URLToArray(url) {
+	var request = {};
+	var pairs = url.substring(url.indexOf('?') + 1).split('&');
+	for (var i = 0; i < pairs.length; i++) {
+		if(!pairs[i])
+			continue;
+		var pair = pairs[i].split('=');
+		request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+	}
+	return request;
+}
+function ArrayToURL(array) {
+	var pairs = [];
+	for (var key in array)
+		if (array.hasOwnProperty(key))
+
+			pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(array[key]));
+	return pairs.join('&');
+}
 function parseStr (str, array) {
   // http://kevin.vanzonneveld.net
   // +   original by: Cagri Ekin

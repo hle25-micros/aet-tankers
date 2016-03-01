@@ -37,6 +37,13 @@ class gmapControllerGmp extends controllerGmp {
 				frameGmp::_()->getModule('marker')->getModel()->setMarkersToMap($addMarkerIds, $mapId);
 				$this->getModel()->resortMarkers(array('map_id' => $mapId));
 			}
+			if(frameGmp::_()->getModule('supsystic_promo')->isPro()) {
+				$addShapeIds = reqGmp::getVar('add_shape_ids');
+				if($addShapeIds && !empty($addShapeIds) && frameGmp::_()->getModule('shape')) {
+					frameGmp::_()->getModule('shape')->getModel()->setShapesToMap($addShapeIds, $mapId);
+					$this->getModel()->resortShapes(array('map_id' => $mapId));
+				}
+			}
 			$res->addMessage(__('Done', GMP_LANG_CODE));
 			$res->addData('map_id', $mapId);
 			$res->addData('map', $this->getModel()->getMapById( $mapId ));
@@ -196,6 +203,13 @@ class gmapControllerGmp extends controllerGmp {
 	public function resortMarkers() {
 		$res = new responseGmp();
 		if(!$this->getModel()->resortMarkers(reqGmp::get('post'))) {
+			$res->pushError( $this->getModel()->getErrors() );
+		}
+		return $res->ajaxExec();
+	}
+	public function resortShapes() {
+		$res = new responseGmp();
+		if(!$this->getModel()->resortShapes(reqGmp::get('post'))) {
 			$res->pushError( $this->getModel()->getErrors() );
 		}
 		return $res->ajaxExec();

@@ -81,7 +81,7 @@ class markerModelGmp extends modelGmp {
 			}
 			if($widthMapData && !empty($marker['map_id']))
 				$marker['map'] = frameGmp::_()->getModule('gmap')->getModel()->getMapById($marker['map_id'], false);
-			$marker['actionButtons'] = frameGmp::_()->getModule('marker')->getView()->getListOperations($marker['id']);
+			$marker['actions'] = frameGmp::_()->getModule('marker')->getView()->getListOperations($marker['id']);
 		}
 		return $marker;
 	}

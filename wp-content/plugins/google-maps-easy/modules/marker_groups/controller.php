@@ -11,13 +11,23 @@ class marker_groupsControllerGmp extends controllerGmp {
 		$query .= ')';
 		return $query;
 	}
+	protected function _prepareSortOrder($orderBy) {
+		if(!$orderBy)
+			$orderBy = 'sort_order';
+		return $orderBy;
+	}
 	protected function _prepareListForTbl($data) {
 		if (!empty($data)) {
+			$markerGroupsIds = array();
 			foreach($data as $i => $v) {
+				// Save Markers Groups sort order
+				$markerGroupsIds[] = $data[$i]['id'];
+
 				// Actions
 				$actions = $this->getView()->getListOperations($v);
 				$data[$i]['actions'] = preg_replace('/\s\s+/', ' ', trim($actions));
 			}
+			$this->getModel()->resortMarkersGroups($markerGroupsIds);
 		}
 		return $data;
 	}
@@ -59,6 +69,14 @@ class marker_groupsControllerGmp extends controllerGmp {
 		} else
 			$res->pushError($this->getModel()->getErrors());
 		$res->ajaxExec();
+	}
+	public function resortMarkersGroups() {
+		$res = new responseGmp();
+		$postData = reqGmp::get('post');
+		if(!$this->getModel()->resortMarkersGroups($postData['ids'])) {
+			$res->pushError( $this->getModel()->getErrors() );
+		}
+		return $res->ajaxExec();
 	}
 	public function getPermissions() {
 		return array(

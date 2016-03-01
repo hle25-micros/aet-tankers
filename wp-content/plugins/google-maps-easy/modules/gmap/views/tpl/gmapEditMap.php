@@ -1,4 +1,6 @@
 <?php
+	$isPro = frameGmp::_()->getModule('supsystic_promo')->isPro();
+	$shapePromoData = frameGmp::_()->getModule('supsystic_promo')->addPromoMapTabs();
 	$addProElementAttrs = $this->isPro ? '' : ' title="'. esc_html(__('This option is available in <a target="_blank" href="%s">PRO version</a> only, you can get it <a target="_blank" href="%s">here.</a>', GMP_LANG_CODE)). '"';
 	$addProElementClass = $this->isPro ? '' : 'supsystic-tooltip gmpProOpt';
 	//$addProElementBottomHtml = $this->isPro ? '' : '<span class="gmpProOptMiniLabel"><a target="_blank" href="'. $this->mainLink. '">'. __('PRO option', GMP_LANG_CODE). '</a></span>';
@@ -7,17 +9,26 @@
 <section>
 	<div class="supsystic-item supsystic-panel">
 		<div id="containerWrapper">
-			<div id="gmpMapMarkerTabs" class="supsistic-half-side-box">
+			<div id="gmpMapPropertiesTabs" class="supsistic-half-side-box">
 				<h3 class="nav-tab-wrapper" style="margin-bottom: 0px; margin-top: 12px;">
 					<a class="nav-tab nav-tab-active" href="#gmpMapTab">
-						<p><?php _e('Map Properties', GMP_LANG_CODE)?></p>
+						<p><?php _e('Map', GMP_LANG_CODE)?></p>
 					</a>
 					<a class="nav-tab" href="#gmpMarkerTab">
 						<p>
 							<?php _e('Markers', GMP_LANG_CODE)?>
 							<button class="button" id="gmpAddNewMarkerBtn">
 								<i class="fa fa-map-marker"></i>
-								<?php _e('Add New Marker', GMP_LANG_CODE)?>
+								<?php _e('Add New', GMP_LANG_CODE)?>
+							</button>
+						</p>
+					</a>
+					<a class="nav-tab" href="#gmpShapeTab">
+						<p>
+							<?php _e('Figures', GMP_LANG_CODE)?>
+							<button class="button gmpProOpt" id="gmpAddNewShapeBtn">
+								<i class="fa fa-cubes"></i>
+								<?php _e('Add New', GMP_LANG_CODE)?>
 							</button>
 						</p>
 					</a>
@@ -631,21 +642,12 @@
 											<label for="map_opts_kml_file_url">
 												<?php _e('Enter KML file URL', GMP_LANG_CODE)?>
 											</label></br>
-											<button
-												class="btn btn-danger gmpProOpt"
-												style="
-													float: left;
-													margin: 6px 5px 0px 0px;
-													padding: 0px;
-													width: 20px;
-													height: 25px;"
-												onclick="gmpKmlRemoveFileRowBtnClick(this); return false;"
-											>
-												<?php _e('X', GMP_LANG_CODE)?>
-											</button>
+											<a href="#" title="<?php _e('Remove KML field', GMP_LANG_CODE)?>" class="button gmpProOpt" onclick="gmpKmlRemoveFileRowBtnClick(this); return false;">
+												<i class="fa fa-trash-o"></i>
+											</a>
 											<?php echo htmlGmp::text('map_opts[kml_file_url][]', array(
 												'value' => '',
-												'attrs' => 'class="gmpProOpt" style="width: 90%;" disabled="disabled"'))?>
+												'attrs' => 'class="gmpProOpt" style="width: 86%;" disabled="disabled"'))?>
 											<span
 												class="gmpKmlUploadMsg"
 												style="	float: right; width: 100%; text-align: right;"
@@ -668,7 +670,7 @@
 										</div>
 										<div id="gmpKmlFileRowsShell"></div>
 										<a
-										 	href="#"
+											href="#"
 											class="button gmpProOpt"
 											id="gmpKmlAddFileRowBtn"
 											style="margin: 5px 5px 5px 0px; float: left;"
@@ -709,6 +711,20 @@
 										<?php echo htmlGmp::checkboxHiddenVal('map_opts[center_on_cur_user_pos]', array(
 											'value' => $this->editMap && isset($this->map['params']['center_on_cur_user_pos']) ? $this->map['params']['center_on_cur_user_pos'] : false,
 											'attrs' => 'class="gmpProOpt"'))?>
+										<div id="gmpCurUserPosOptions" style="margin-top: 10px;">
+											<?php echo htmlGmp::hidden('map_opts[center_on_cur_user_pos_icon]', array(
+												'value' => $this->editMap && isset($this->map['params']['center_on_cur_user_pos_icon'])
+													? $this->map['params']['center_on_cur_user_pos_icon']
+													: 1 /*Default Icon ID*/ ))?>
+											<img id="gmpCurUserPosIconPrevImg" src="" style="float: left;" />
+											<div style="float: right">
+												<a href="#" id="gmpCurUserPosIconBtn" class="button gmpProOpt"><?php _e('Choose Icon', GMP_LANG_CODE)?></a>
+												<a href="#" id="gmpUploadCurUserPosIconBtn" class="button gmpProOpt"><?php _e('Upload Icon', GMP_LANG_CODE)?></a>
+												<div class="gmpCurUserPosUplRes"></div>
+												<div class="gmpCurUserPosFileUpRes"></div>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
 									</td>
 								</tr>
 								<tr>
@@ -1029,6 +1045,153 @@
 						<?php echo htmlGmp::hidden('marker_opts[path]', array('value' => ''))?>
 					</form>
 				</div>
+				<div id="gmpShapeTab" class="gmpTabContent">
+					<?php if($isPro) {?>
+						<form id="gmpShapeForm">
+							<table class="form-table">
+								<tr>
+									<th scope="row">
+										<label class="label-big" for="shape_opts_title">
+											<?php _e('Figure Name', GMP_LANG_CODE)?>:
+										</label>
+										<i style="float: right;" class="fa fa-question supsystic-tooltip" title="<?php _e('Your figure title', GMP_LANG_CODE)?>"></i>
+									</th>
+									<td>
+										<?php echo htmlGmp::text('shape_opts[title]', array(
+											'value' => '',
+											'attrs' => 'style="width: 100%;"'))?>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">
+										<label class="label-big" for="shape_opts_type">
+											<?php _e('Figure Type', GMP_LANG_CODE)?>:
+										</label>
+										<i style="float: right;" class="fa fa-question supsystic-tooltip" title="<?php _e('Type of your figure: polyline (a series of straight segments on the map) or polygon (area enclosed by a closed path (or loop), which is defined by a series of coordinates).', GMP_LANG_CODE)?>"></i>
+									</th>
+									<td>
+										<?php echo htmlGmp::selectbox('shape_opts[type]', array(
+											'options' => array(
+												'polyline' => __('Polyline', GMP_LANG_CODE),
+												'polygon' => __('Polygon', GMP_LANG_CODE),),
+											'value' => 'polyline',
+											'attrs' => 'style="width: 100%;"'))?>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding: 0 10px 0 0;">
+											<div class="gmpCommonShapeParam gmpParamLeft">
+												<label class="label" for="shape_opts_line_color">
+													<?php _e('Line Color', GMP_LANG_CODE)?>
+												</label></br>
+												<?php echo htmlGmp::colorpicker('shape_opts[params][strokeColor]', array(
+													'value' => ''))?>
+											</div>
+											<div class="gmpCommonShapeParam">
+												<label class="label" for="shape_opts_line_opacity">
+													<?php _e('Line Opacity', GMP_LANG_CODE)?>
+												</label></br>
+												<?php echo htmlGmp::selectbox('shape_opts[params][strokeOpacity]', array(
+													'options' => array(
+														'0' => 0, '0.1' => 0.1, '0.2' => 0.2, '0.3' => 0.3
+													,	'0.4' => 0.4, '0.5' => 0.5, '0.6' => 0.6
+													,	'0.7' => 0.7, '0.8' => 0.8, '0.9' => 0.9, '1' => 1),
+													'value' => ''))?>
+											</div>
+											<div class="gmpCommonShapeParam  gmpParamRight">
+												<label class="label" for="shape_opts_line_weight">
+													<?php _e('Line Weight', GMP_LANG_CODE)?>
+												</label></br>
+												<?php echo htmlGmp::text('shape_opts[params][strokeWeight]', array(
+													'value' => '',
+													'attrs' => 'style="width: 100%;"'))?>
+											</div>
+											<div class="gmpPolygonShapeParam gmpParamLeft">
+												<label class="label" for="shape_opts_fill_color">
+													<?php _e('Fill Color', GMP_LANG_CODE)?>
+												</label></br>
+												<?php echo htmlGmp::colorpicker('shape_opts[params][fillColor]', array(
+													'value' => ''))?>
+											</div>
+											<div class="gmpPolygonShapeParam">
+												<label class="label" for="shape_opts_fill_opacity">
+													<?php _e('Fill Opacity', GMP_LANG_CODE)?>
+												</label></br>
+												<?php echo htmlGmp::selectbox('shape_opts[params][fillOpacity]', array(
+													'options' => array(
+														'0' => 0, '0.1' => 0.1, '0.2' => 0.2, '0.3' => 0.3
+													,	'0.4' => 0.4, '0.5' => 0.5, '0.6' => 0.6
+													,	'0.7' => 0.7, '0.8' => 0.8, '0.9' => 0.9, '1' => 1),
+													'value' => ''))?>
+											</div>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">
+										<label for="shape_opts_coords">
+											<?php _e('Points', GMP_LANG_CODE)?>:
+										</label>
+										<i style="float: right;" class="fa fa-question supsystic-tooltip" title="<?php _e('Figure\'s points list: you can search the point by address (just start typing in Address field), type the Latitude and Longitude of point in appropriate fields or activate Add by Click button, and then draw figure on the map by clicking on it. Important! You must deactivate Add by Click button after ending of the draw.', GMP_LANG_CODE)?>"></i>
+									</th>
+									<td>
+										<a href="#" class="button" id="gmpShapeAddPointByClickBtn" style="float: left;">
+											<?php _e('Add by Click', GMP_LANG_CODE)?>
+										</a>
+										<a href="#" class="button" id="gmpShapeAddPointRowBtn" style="float: right;">
+											<?php _e('Add new point', GMP_LANG_CODE)?>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-top: 10px; padding-left: 0;">
+										<div class="gmpShapePointRowExample" style="display: none;">
+											<div style="clear: both;">
+												<div style="display: inline-block; width: 49.8%;">
+													<label for="shape_opts_address">
+														<?php _e('Address', GMP_LANG_CODE)?>
+													</label>
+													<?php echo htmlGmp::text('shape_opts[coords][0][address]', array(
+														'value' => '',
+														'placeholder' => '603 Park Avenue, Brooklyn, NY 11206, USA',
+														'attrs' => 'class="gmpShapeAddress" style="width: 100%;"'))?>
+												</div>
+												<div style="display: inline-block; width: 20%;">
+													<label for="shape_opts_coord_x">
+														<?php _e('Latitude', GMP_LANG_CODE)?>
+													</label>
+													<?php echo htmlGmp::text('shape_opts[coords][0][coord_x]', array(
+														'value' => '',
+														'placeholder' => '40.69827799999999',
+														'attrs' => 'class="gmpShapeCoordX" style="width: 100%;"'))?>
+												</div>
+												<div style="display: inline-block; width: 20%;">
+													<label for="shape_opts_coord_y">
+														<?php _e('Longitude', GMP_LANG_CODE)?>
+													</label>
+													<?php echo htmlGmp::text('shape_opts[coords][0][coord_y]', array(
+														'value' => '',
+														'placeholder' => '-73.95141139999998',
+														'attrs' => 'class="gmpShapeCoordY" style="width: 100%;"'))?>
+												</div>
+												<a href="#" title="<?php _e('Remove point', GMP_LANG_CODE)?>" class="button" id="gmpShapeRemovePointRowBtn">
+													<i class="fa fa-trash-o"></i>
+												</a>
+											</div>
+										</div>
+										<div id="gmpShapePointRowsShell"></div>
+									</td>
+								</tr>
+							</table>
+							<?php echo htmlGmp::hidden('mod', array('value' => 'shape'))?>
+							<?php echo htmlGmp::hidden('action', array('value' => 'save'))?>
+							<?php echo htmlGmp::hidden('shape_opts[id]', array('value' => ''))?>
+							<?php echo htmlGmp::hidden('shape_opts[map_id]', array('value' => $this->editMap ? $this->map['id'] : ''))?>
+							<?php echo htmlGmp::hidden('shape_opts[path]', array('value' => ''))?>
+						</form>
+					<?php } else {
+						echo $shapePromoData['gmpShapeTab']['content'];
+					}?>
+				</div>
 			</div>
 			<div class="supsistic-half-side-box">
 				<div id="gmpMapRightStickyBar" class="supsystic-sticky">
@@ -1037,25 +1200,25 @@
 						<?php dispatcherGmp::doAction('addAdminMapBottomControls', $this->editMap ? $this->map : array()); ?>
 					</div>
 					<?php echo htmlGmp::hidden('rand_view_id', array('value' => $this->viewId, 'attrs' => 'id="gmpViewId"'))?>
-					<div id="gmpShortCodeRowShell" class="row">
+					<div id="gmpShortCodeRowShell" class="row" style="display: none;">
 						<div class="shortcode-wrap">
 							<p id="shortcodeCode" style="display: none;">
 								<strong style="margin-top: 7px; font-size: 1.2em; float: left;"><?php _e('Map shortcode', GMP_LANG_CODE)?>:</strong>
 								<?php echo htmlGmp::text('gmpCopyTextCode', array(
 									'value' => '',	// Will be inserted from JS
-									'attrs' => 'class="gmpCopyTextCode gmpMapShortCodeShell" style="float: right;"'));?>
+									'attrs' => 'class="gmpCopyTextCode gmpMapShortCodeShell" style="float: right; text-align: center;"'));?>
 								<br style="clear: both;" />
 								<strong style="margin-top: 7px; font-size: 1.2em; float: left;"><?php _e('PHP code', GMP_LANG_CODE)?>:</strong>
 								<?php echo htmlGmp::text('gmpCopyTextCode', array(
 									'value' => '',	// Will be inserted from JS
-									'attrs' => 'class="gmpCopyTextCode gmpMapPhpShortCodeShell" style="float: right;"'));?>
+									'attrs' => 'class="gmpCopyTextCode gmpMapPhpShortCodeShell" style="float: right; text-align: center;"'));?>
 								<br style="clear: both;" />
 							</p>
 							<p id="shortcodeNotice" style="display: none;"><?php _e('Shortcode will appear after you save map.', GMP_LANG_CODE)?></p>
 						</div>
 						<div style="clear: both;"></div>
 					</div>
-					<div id="gmpMapMainBtns" class="row">
+					<div id="gmpMapMainBtns" class="row" style="display: none;">
 						<div class="sup-col sup-w-50">
 							<button id="gmpMapSaveBtn" class="button button-primary" style="width: 100%;">
 								<i class="fa dashicons-before dashicons-admin-site"></i>
@@ -1070,7 +1233,7 @@
 						</div>
 						<div style="clear: both;"></div>
 					</div>
-					<div id="gmpMarkerMainBtns" class="row">
+					<div id="gmpMarkerMainBtns" class="row" style="display: none;">
 						<div class="sup-col sup-w-50">
 							<button id="gmpSaveMarkerBtn" class="button button-primary" style="width: 100%;">
 								<i class="fa fa-map-marker"></i>
@@ -1085,12 +1248,30 @@
 						</div>
 						<div style="clear: both;"></div>
 					</div>
-					<div id="markerList">
+					<div id="gmpShapeMainBtns" class="row" style="display: none;">
+						<div class="sup-col sup-w-50">
+							<button id="gmpSaveShapeBtn" class="button button-primary" style="width: 100%;">
+								<i class="fa fa-cubes"></i>
+								<?php _e('Save Figure', GMP_LANG_CODE)?>
+							</button>
+						</div>
+						<div class="sup-col sup-w-50" style="padding-right: 0;">
+							<button id="gmpShapeDeleteBtn" class="button button-primary" style="width: 100%;">
+								<i class="fa dashicons-before dashicons-trash"></i>
+								<?php _e('Delete Figure', GMP_LANG_CODE)?>
+							</button>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div id="gmpMarkerList">
 						<table id="gmpMarkersListGrid" class="supsystic-tbl-pagination-shell"></table>
+					</div>
+					<div id="gmpShapeList">
+						<table id="gmpShapesListGrid" class="supsystic-tbl-pagination-shell"></table>
 					</div>
 					<?php /*?>
 					<div class="row">
-						<div id="markerList">
+						<div id="gmpMarkerList">
 							<div style="display: none;" id="markerRowTemplate" class="row gmpMapMarkerRow">
 								<div class="col-xs-12 egm-marker">
 									<div class="row">

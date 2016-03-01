@@ -49,6 +49,16 @@ class reqGmp {
                 if(isset($_SERVER[$name]))
                     return $_SERVER[$name];
 				break;
+			case 'cookie':
+				if(isset($_COOKIE[$name])) {
+					$value = $_COOKIE[$name];
+					if(strpos($value, '_JSON:') === 0) {
+						$value = explode('_JSON:', $value);
+						$value = utilsGmp::jsonDecode(array_pop($value));
+					}
+                    return $value;
+				}
+				break;
         }
         return $default;
     }

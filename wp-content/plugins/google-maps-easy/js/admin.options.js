@@ -104,7 +104,7 @@ function gmpResetCopyTextCodeFields(selector) {
 		});
 		area.find('input.gmpCopyTextCode').each(function(){
 			cloneWidthElement.html( str_replace(jQuery(this).val(), '<', 'P') );
-			jQuery(this).width( cloneWidthElement.width() );
+			jQuery(this).width( cloneWidthElement.width() - 20 ); // Make less free space in inputs
 		});
 		cloneWidthElement.remove();
 	}

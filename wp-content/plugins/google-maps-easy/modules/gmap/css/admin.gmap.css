@@ -8,6 +8,11 @@
 .supsystic-plugin table.form-table tr {
 	border-bottom: medium none !important;
 }
+/*Maps List Table*/
+#gmpGmapTbl_markers #jqgh_gmpGmapTbl_markers .s-ico,
+#gmpGmapTbl_actions #jqgh_gmpGmapTbl_actions .s-ico {
+	display: none !important;
+}
 /* Map shortcode */
 .shortcode-wrap {
     padding: 10px 10px 0;
@@ -29,10 +34,10 @@
 	padding: 0 8px;
 }
 /* Markers list on edit page */
-#markerList {
-    margin: 15px 0;
-    border-top: 1px solid #e9edee;
-    padding-top: 15px;
+#gmpMarkerList, #gmpShapeList {
+	margin: 15px 0;
+	border-top: 1px solid #e9edee;
+	padding-top: 15px;
 	overflow-x: auto;
 	background-color: #fff;
 }
@@ -106,45 +111,62 @@
 	color: #2ea2cc;
 }
 #gmpMapForm .form-table th,
-#gmpMarkerForm .form-table th {
+#gmpMarkerForm .form-table th,
+#gmpShapeForm .form-table th {
 	width: 170px;
 }
 #gmpMapForm .form-table th label,
-#gmpMarkerForm .form-table th label {
+#gmpMarkerForm .form-table th label,
+#gmpShapeForm .form-table th label {
 	font-size: 15px;
 	float: left;
 	max-width: 140px;
 }
+/*Map Shortcode Shell*/
+#gmpShortCodeRowShell .gmpCopyTextCode {
+	font-size: 12px !important;
+}
 /*Main map/marker tabs*/
-#gmpMapMarkerTabs a.nav-tab {
+#gmpMapPropertiesTabs .button:focus {
+	background: transparent !important;
+	border-color: #000000 !important;
+}
+#gmpMapPropertiesTabs .button-primary:focus {
+	color: #000000 !important;
+}
+#gmpMapPropertiesTabs a.nav-tab {
 	padding-bottom: 5px;
 	border-color: transparent;
 	background-color: #fff;
 	margin-left: 0;
+	margin-right: 0;
 }
-#gmpMapMarkerTabs a.nav-tab-active {
+#gmpMapPropertiesTabs a.nav-tab-active {
 	border-top-color: #000;
 	border-left-color: #ccc;
 	border-right-color: #ccc;
 }
-#gmpMapMarkerTabs a.nav-tab p {
+#gmpMapPropertiesTabs a.nav-tab p {
 	font-size: 16px;
 	font-weight: normal;
 	min-height: 35px;
 }
-#gmpMapMarkerTabs a.nav-tab-active p {
+#gmpMapPropertiesTabs a.nav-tab:first-of-type p {
+	padding-top: 4px;
+}
+#gmpMapPropertiesTabs a.nav-tab-active p {
 	font-weight: bold;
 }
-#gmpMapMarkerTabs a.nav-tab:not(.nav-tab-active):hover {
+#gmpMapPropertiesTabs a.nav-tab:not(.nav-tab-active):hover {
 	border-top-color: #ccc;
 }
-#gmpMapMarkerTabs a.nav-tab p button.button {
+#gmpMapPropertiesTabs a.nav-tab p button.button {
 	font-weight: normal;
 }
-#gmpMapMarkerTabs a.nav-tab p button.button:first-of-type {
+#gmpMapPropertiesTabs a.nav-tab p button.button:first-of-type {
 	margin-left: 10px;
 }
-#gmpMapMarkerTabs .nav-tab-wrapper {
+#gmpMapPropertiesTabs .nav-tab-wrapper {
 	border-bottom-color: #000;
 }
 /*Map/marker main action btns*/
@@ -182,7 +204,7 @@
 	padding: 0;
 }
 /*Markers list table sortable*/
-#markerList .ui-sortable-placeholder {
+#gmpMarkerList .ui-sortable-placeholder {
 	height: 44px;
 	border: 1px solid #a5b6b2;
     box-shadow: -3px -3px 6px #a5b6b2 inset;

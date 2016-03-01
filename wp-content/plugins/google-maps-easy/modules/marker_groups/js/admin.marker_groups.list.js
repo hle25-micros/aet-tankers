@@ -1,33 +1,34 @@
 jQuery(document).ready(function(){
 	var tblId = 'gmpMgrTbl';
 	jQuery('#'+ tblId).jqGrid({
-			url: mgrTblDataUrl
-		,	datatype: 'json'
-		,	autowidth: true
-		,	shrinkToFit: true
-		,	colNames:[toeLangGmp('ID'), toeLangGmp('Title'), toeLangGmp('Actions')]
-		,	colModel:[
-				{name: 'id', index: 'id', searchoptions: {sopt: ['eq']}, width: '50', align: 'center'}
-			,	{name: 'title', index: 'title', searchoptions: {sopt: ['eq']}, align: 'center'}
-			,	{name: 'actions', index: 'actions', searchoptions: {sopt: ['eq']}, align: 'center'}
+		url: mgrTblDataUrl
+	,	datatype: 'json'
+	,	autowidth: true
+	,	shrinkToFit: true
+	,	colNames:[toeLangGmp('ID'), toeLangGmp('Title'), toeLangGmp('Actions')]
+	,	colModel:[
+			{name: 'id', index: 'id', searchoptions: {sopt: ['eq']}, width: '50', align: 'center', key: true}
+		,	{name: 'title', index: 'title', searchoptions: {sopt: ['eq']}, align: 'center'}
+		,	{name: 'actions', index: 'actions', searchoptions: {sopt: ['eq']}, align: 'center', sortable: false}
 		]
-		,	postData: {
+	,	postData: {
 			search: {
 				text_like: jQuery('#'+ tblId+ 'SearchTxt').val()
 			}
 		}
-		,	rowNum: 10
-		,	rowList: [10, 20, 30, 1000]
-		,	pager: '#'+ tblId+ 'Nav'
-		,	sortname: 'id'
-		,	viewrecords: true
-		,	sortorder: 'desc'
-		,	jsonReader: { repeatitems : false, id: '0' }
-		,	caption: toeLangGmp('Current Marker Category')
-		,	height: '100%'
-		,	emptyrecords: toeLangGmp('You have no Marker Categories for now.')
-		,	multiselect: true
-		,	onSelectRow: function(rowid, e) {
+	,	rowNum: 10
+	,	rowList: [10, 20, 30, 1000]
+	,	pager: '#'+ tblId+ 'Nav'
+	,	sortname: 'sort_order'
+	,	viewrecords: true
+	,	sortorder: 'asc'
+	,	jsonReader: { repeatitems : false, id: '0' }
+	,	caption: toeLangGmp('Current Marker Category')
+	,	height: '100%'
+	,	emptyrecords: toeLangGmp('You have no Marker Categories for now.')
+	,	multiselect: true
+	,	sortable: true
+	,	onSelectRow: function(rowid, e) {
 			var tblId = jQuery(this).attr('id')
 			,	selectedRowIds = jQuery('#'+ tblId).jqGrid ('getGridParam', 'selarrrow')
 			,	totalRows = jQuery('#'+ tblId).getGridParam('reccount')
@@ -48,7 +49,7 @@ jQuery(document).ready(function(){
 			gmpCheckUpdate(jQuery(this).find('tr:eq('+rowid+')').find('input[type=checkbox].cbox'));
 			gmpCheckUpdate('#cb_'+ tblId);
 		}
-		,	gridComplete: function(a, b, c) {
+	,	gridComplete: function(a, b, c) {
 			var tblId = jQuery(this).attr('id');
 			jQuery('#gmpMgrRemoveGroupBtn').attr('disabled', 'disabled');
 			jQuery('#cb_'+ tblId).prop('indeterminate', false);
@@ -62,7 +63,7 @@ jQuery(document).ready(function(){
 			gmpCheckUpdate('#cb_'+ jQuery(this).attr('id'));
 			tooltipsterize( jQuery('#'+ tblId) );
 		}
-		,	loadComplete: function() {
+	,	loadComplete: function() {
 			var tblId = jQuery(this).attr('id');
 			if (this.p.reccount === 0) {
 				jQuery(this).hide();
@@ -71,6 +72,18 @@ jQuery(document).ready(function(){
 				jQuery(this).show();
 				jQuery('#'+ tblId+ 'EmptyMsg').hide();
 			}
+		}
+	}).jqGrid('sortableRows', {
+		update: function (e, ui) {
+			var ids = jQuery('#'+ tblId).jqGrid('getDataIDs');
+			jQuery.sendFormGmp({
+				data: { mod: 'marker_groups', action: 'resortMarkersGroups', ids: ids }
+			,	onSuccess: function(res) {
+					if(!res.error) {
+						jQuery('#gmpMarkersListGrid').trigger('reloadGrid');
+					}
+				}
+			});
 		}
 	});
 	jQuery('#'+ tblId+ 'NavShell').append( jQuery('#'+ tblId+ 'Nav') );
@@ -93,7 +106,7 @@ jQuery(document).ready(function(){
 	});
 	jQuery('#gmpMgrRemoveGroupBtn').click(function(){
 		var selectedRowIds = jQuery('#gmpMgrTbl').jqGrid ('getGridParam', 'selarrrow')
-			,	listIds = [];
+		,	listIds = [];
 		for(var i in selectedRowIds) {
 			var rowData = jQuery('#gmpMgrTbl').jqGrid('getRowData', selectedRowIds[ i ]);
 			listIds.push( rowData.id );
@@ -109,8 +122,8 @@ jQuery(document).ready(function(){
 		if(confirm(confirmMsg)) {
 			jQuery.sendFormGmp({
 				btn: this
-				,	data: {mod: 'marker_groups', action: 'removeGroup', listIds: listIds}
-				,	onSuccess: function(res) {
+			,	data: {mod: 'marker_groups', action: 'removeGroup', listIds: listIds}
+			,	onSuccess: function(res) {
 					if(!res.error) {
 						jQuery('#gmpMgrTbl').trigger( 'reloadGrid' );
 					}
@@ -123,8 +136,8 @@ jQuery(document).ready(function(){
 		if(confirm(toeLangGmp('Clear whole marker categories list?'))) {
 			jQuery.sendFormGmp({
 				btn: this
-				,	data: {mod: 'marker_groups', action: 'clear'}
-				,	onSuccess: function(res) {
+			,	data: {mod: 'marker_groups', action: 'clear'}
+			,	onSuccess: function(res) {
 					if(!res.error) {
 						jQuery('#gmpMgrTbl').trigger( 'reloadGrid' );
 					}
@@ -147,8 +160,8 @@ function gmpRemoveMarkerGroupFromTblClick(markerGroupId){
 
 	jQuery.sendFormGmp({
 		msgElID: msgEl
-		,	data: {action: 'remove', mod: 'marker_groups', id: markerGroupId}
-		,	onSuccess: function(res) {
+	,	data: {action: 'remove', mod: 'marker_groups', id: markerGroupId}
+	,	onSuccess: function(res) {
 			if(!res.error){
 				jQuery('#gmpMgrTbl').trigger( 'reloadGrid' );
 				setTimeout(function(){

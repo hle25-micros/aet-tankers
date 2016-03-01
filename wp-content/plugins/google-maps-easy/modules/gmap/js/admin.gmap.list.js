@@ -10,8 +10,8 @@ jQuery(document).ready(function(){
 			{name: 'id', index: 'id', searchoptions: {sopt: ['eq']}, width: '50', align: 'center'}
 		,	{name: 'title', index: 'title', searchoptions: {sopt: ['eq']}, align: 'center'}
 		,	{name: 'create_date', index: 'create_date', searchoptions: {sopt: ['eq']}, align: 'center'}
-		,	{name: 'markers', index: 'markers', searchoptions: {sopt: ['eq']}, align: 'center'}
-		,	{name: 'actions', index: 'actions', searchoptions: {sopt: ['eq']}, align: 'center'}
+		,	{name: 'markers', index: 'markers', searchoptions: {sopt: ['eq']}, align: 'center', sortable: false}
+		,	{name: 'actions', index: 'actions', searchoptions: {sopt: ['eq']}, align: 'center', sortable: false}
 		]
 	,	postData: {
 			search: {
@@ -108,7 +108,7 @@ jQuery(document).ready(function(){
 		}
 		var confirmMsg = listIds.length > 1
 			? toeLangGmp('Are you sur want to remove '+ listIds.length+ ' Maps?')
-			: toeLangGmp('Are you sure want to remove "'+ mapLabel+ '" Map?')
+			: toeLangGmp('Are you sure want to remove "'+ mapLabel+ '" Map?');
 		if(confirm(confirmMsg)) {
 			jQuery.sendFormGmp({
 				btn: this
