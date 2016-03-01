@@ -1315,7 +1315,7 @@ Menu css
 }
 
 #site-navigation ul.sub-menu {
-    background: #333333 none repeat scroll 0 0;
+    background: rgba(222, 255, 255, 0.95);
     width: 235px;
     opacity: 0;
     padding: 0;
@@ -1340,9 +1340,13 @@ Menu css
     background: rgba(222, 255, 255, 0.95) none repeat scroll 0 0;
 }
 
-.home .stick #site-navigation ul.sub-menu,.home.non-transparent  #site-navigation ul.sub-menu, .home.non-stick    #site-navigation ul.sub-menu{
+.home .stick #site-navigation ul.sub-menu,
+.home.non-transparent #site-navigation ul.sub-menu, 
+.home.non-stick #site-navigation ul.sub-menu,
+.page .stick #site-navigation ul.sub-menu {
     background: rgba(255, 255, 255, 0.95);
 }
+
 #site-navigation ul li:hover > ul.sub-menu,
 .home #site-navigation ul li:hover > ul.sub-menu {
     opacity: 1;
@@ -1504,7 +1508,7 @@ Non stick header with slider
 --------------------------------------------------------------*/
 .transparent .header-wrapper,
 .non-transparent .header-wrapper {
-    background: #333333 none repeat scroll 0 0;
+    background: rgba(222, 255, 255, 0.95);
     left: 0;
     padding: 10px 0;
     position: fixed;
