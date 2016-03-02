@@ -2532,7 +2532,7 @@ Video background css
 .portfolio-images-wrapper:hover .port-link {
     opacity: 1;
     visibility: visible;
-    top: 30%;
+    top: 10%;
 }
 
 .port-link a {
@@ -3272,6 +3272,7 @@ Video background css
 }
 
 .entry-meta {
+	display: none;
     margin: 30px 0;
     border: 1px solid #e1e1e1;
     border-left: none;
@@ -4292,8 +4293,34 @@ width: 16%;
 
 
 /* removing the search results title */
-
 .search .page-header {
     display: none;
 }
+
+.category-annual-reviews .page-header,
+.category-images .page-header,
+.category-images .entry-title {
+	display: none;
+}
+
+
+.category .section-title-wrapper,
+.category .entry-content {
+	margin: 0;
+}
+
+.category .section-title-wrapper p {
+	text-align: left;
+}
+
+.category .entry-content .portfolio-images-wrapper p:last-child {	
+	display: none;
+}
+
+/*.category-images .section-wrapper .portfolio-images-wrapper .port-link a:last-child {
+	display: none;
+}*/
+
+
+
 
