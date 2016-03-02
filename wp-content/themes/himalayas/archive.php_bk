@@ -1,0 +1,81 @@
+<?php
+/**
+ * The template for displaying Archive pages
+ *
+ * @package ThemeGrill
+ * @subpackage Himalayas
+ * @since Himalayas 1.0
+ */
+?>
+
+<?php get_header(); ?>
+
+	<?php do_action( 'himalayas_before_body_content' );
+
+	$himalayas_layout = himalayas_layout_class(); ?>
+	
+	 <div <?php echo $section_id; ?> >
+         <div  class="section-wrapper">
+            <div class="tg-container">
+				<div>
+                  <?php himalayas_archive_title( '<h2 class="main-title">', '</h1>' ); ?>
+               </div>
+			   
+			   <!-- display content -->
+			   <?php if ( have_posts() ) : ?>
+			    <?php $count = 0; ?>
+					<div class="service-content-wrapper clearfix">
+						<div class="tg-column-wrapper clearfix">
+							<?php while(  have_posts() ) : the_post();
+									if ( $count % 3 == 0 && $count > 1 ) { ?> <div class="clearfix"></div> <?php } ?>
+									<div class="tg-column-3 tg-column-bottom-margin">
+									  <?php
+									  $himalayas_icon = get_post_meta( $post->ID, 'himalayas_font_icon', true );
+									  $himalayas_icon = isset( $himalayas_icon ) ? esc_attr( $himalayas_icon ) : '';
+
+									  $icon_image_class = '';
+									  if( !empty ( $himalayas_icon ) ) {
+										 $icon_image_class = 'service_icon_class';
+										 $services_top = '<i class="fa ' . esc_html( $himalayas_icon ) . '"></i>';
+									  }
+									  if( has_post_thumbnail() ) {
+										 $icon_image_class = 'service_image_class';
+										 $services_top = get_the_post_thumbnail( $post->ID, 'himalayas-services' );
+									  }
+
+									  if( has_post_thumbnail() || !empty ( $himalayas_icon ) ) { ?>
+
+										 <div class="<?php echo $icon_image_class; ?>">
+											<div class="image-wrap">
+											   <?php echo $services_top; ?>
+											</div>
+										 </div>
+									  <?php } ?>
+
+									  <div class="service-desc-wrap">
+										 <h5 class="service-title"><a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>" alt="<?php the_title_attribute(); ?>"> <?php echo esc_html( get_the_title() ); ?></a></h5>
+
+										 <div class="service-content">
+											<?php the_excerpt(); ?>
+										 </div>
+
+										 <a class="service-read-more" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"> <?php  _e( 'Read more', 'himalayas' ) ?><i class="fa fa-angle-double-right"> </i></a>
+									  </div>
+								   </div>
+								   <?php $count++;
+								endwhile; ?>					   
+						</div>
+					</div> <?php 
+					else :
+						get_template_part( 'no-results', 'archive' );
+
+					endif;
+					?>
+			</div>
+		</div>
+	</div>	
+	<?php //himalayas_sidebar_select(); ?>
+
+	<?php do_action( 'himalayas_after_body_content' ); ?>
+
+<?php get_footer(); ?>
