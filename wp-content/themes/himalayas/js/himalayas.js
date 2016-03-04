@@ -82,4 +82,6 @@ jQuery(document).ready(function() {
       jQuery(this).parent('.menu-item-has-children').children('ul.sub-menu').first().slideToggle('1000');
       jQuery(this).children('.fa-angle-right').first().toggleClass('fa-angle-down');
    });
+   
+   jQuery(".button-block").find("a:contains('View More')").text("Download Full Document");
 });
