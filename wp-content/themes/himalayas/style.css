@@ -4300,10 +4300,19 @@ width: 16%;
 .category-annual-reviews .page-header,
 .category-images .page-header,
 .category-images .entry-title,
-.category-annual-reviews .entry-title {
+.category-annual-reviews .entry-title,
+.category-news .entry-title,
+.category-news .page-header {
 	display: none;
 }
 
+.category-news .entry-content h3 {
+	display: none !important;
+}
+
+.category #content {
+	margin-top: 95px !important;
+}
 
 .category .section-title-wrapper,
 .category .entry-content {
@@ -4358,4 +4367,12 @@ width: 16%;
 	display: none;
 }
 
+/* */
+.wpsm_nav.wpsm_nav-tabs {
+	
+}
+
+.wpsm_nav.wpsm_nav-tabs li.active a {
+	background-color: #f15a24;
+}
 
