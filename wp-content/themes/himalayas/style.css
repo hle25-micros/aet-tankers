@@ -773,6 +773,7 @@ Comments
 #comments {
     border-top: 1px solid #F8F8F8;
     padding-top: 15px;
+	display:none;
 }
 
 #comments i {
@@ -4323,4 +4324,5 @@ width: 16%;
 
 
 
-
+.entry-content ul li.list-makers{position: relative; display: inline; width: 50% !important; margin-right: 6%;}
+.entry-content ul li.list-makers img{width:20px;}
