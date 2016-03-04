@@ -1169,7 +1169,8 @@ body {
 }
 
 .tg-container {
-    width: 1190px;
+    /*width: 1190px;*/
+	width: 100%;
     margin: 0 auto;
     position: relative;
 }
@@ -4361,3 +4362,48 @@ width: 16%;
 
 .entry-content ul li.list-makers{position: relative; display: inline; width: 50% !important; margin-right: 6%;}
 .entry-content ul li.list-makers img{width:20px;}
+
+.l-content {
+    position: relative;
+    margin-top: 0px;
+    padding: 0px !important;
+    margin-bottom: 0px;
+	color:#fff;
+}
+.group-left {
+    width: 100%;
+    position: static;
+}
+.field-name-field-page-background {
+    top: 215px;
+}
+.group-right .field-name-field-page-intro {
+    max-width: 1190px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px auto;
+}
+.group-right .field-name-field-page-intro .intro {
+    padding: 30px 30px 0px;
+}
+
+.group-right > .field-name-body {
+    background-image: none;
+    max-width: 1190px;
+	padding: 0px;
+	margin: 0px auto;
+}
+
+.field-name-body > .field-expander, .group-right .field-name-field-page-intro .intro {
+    background: transparent url("http://www.aet-tankers.com/sites/all/themes/custom/aet_theme/images/black60per.png") repeat scroll 0% 0%;
+    width: 50%;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+.group-right {
+    width: 100%;
+    top: 90px;
+    position: absolute;
+}
+
+.l-content .details h1.entry-title{display:none;}
