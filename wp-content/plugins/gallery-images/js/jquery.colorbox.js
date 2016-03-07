@@ -450,11 +450,13 @@ if(typeof lightbox_html != 'undefined') {
 			$overlay = $tag(div, "Overlay").hide();
 			$loadingOverlay = jQuery([$tag(div, "LoadingOverlay")[0],$tag(div, "LoadingGraphic")[0]]);
 			$wrap = $tag(div, "Wrapper");
+			
 			$content = $tag(div, "Content").append(
 				$title = $tag(div, "Title"),
 				$current = $tag(div, "Current"),
 				$prev = jQuery('<button type="button"/>').attr({id:prefix+'Previous'}),
 				$next = jQuery('<button type="button"/>').attr({id:prefix+'Next'}),
+				$download = jQuery('<a href="" download="myimage"></a>').attr({id:prefix+'Down'}),
 				$slideshow = $tag('button', "Slideshow"),
 				$loadingOverlay
 			);
@@ -481,7 +483,7 @@ if(typeof lightbox_html != 'undefined') {
 			
 			$loadingBay = $tag(div, false, 'position:absolute; width:9999px; visibility:hidden; display:none; max-width:none;');
 			
-			$groupControls = $next.add($prev).add($current).add($slideshow);
+			$groupControls = $next.add($prev).add($current).add($slideshow).add($download);
 
 			jQuery(document.body).append($overlay, $box.append($wrap, $loadingBay));
 		}
@@ -926,7 +928,9 @@ if(typeof lightbox_html != 'undefined') {
 		}
 		
 		href = settings.get('href');
-		
+		//alert(href);		
+		var filename = href.match(/.*\/([^/]+)\.([^?]+)/i)[1]+"."+href.match(/.*\/([^/]+)\.([^?]+)/i)[2];
+		jQuery("#cboxDown").attr("href",href).attr("target","_blank").attr("download",filename).show();
 		loadingTimer = setTimeout(function () {
 			$loadingOverlay.show();
 		}, 100);
