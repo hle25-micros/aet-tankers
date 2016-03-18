@@ -165,7 +165,7 @@
 				}
 			}
 
-			chart.draw(table, settings);
+			//chart.draw(table, settings);
 		}
 	});
 
