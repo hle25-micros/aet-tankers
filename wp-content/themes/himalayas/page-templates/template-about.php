@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Our Business Template
+ * Template Name: About Template
  *
- * Displays the Our Business Template of the theme.
+ * Displays the About Template of the theme.
  *
  * @package ThemeGrill
  * @subpackage Himalayas
@@ -19,8 +19,9 @@
  <?php 
 		$src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), '', false, '' ); 
 		//print_r($src);
+		//style="background:url('') no-repeat;background-size: 100% 1000px;"
 	?>
-	<div id="content" class="site-content" style="background:url('<?php echo $src[0];?>') no-repeat;background-size: 100% 1000px;">
+	<div id="content" class="site-content" >
 	   <main id="main" class="clearfix <?php echo $himalayas_layout; ?>">
 			<div class="tg-container">				
 				<div class="section-title-wrapper">
@@ -28,18 +29,9 @@
 				</div>
 				<div id="primary">
 					<div id="content-2">
-					<div class="l-content">					
- 						<div class="group-left">
-							<div class="field field-name-field-page-background" style="width:100%;height:800px;"><img src="<?php echo $src[0];?>" alt="" width="1" height="1" /></div>
-						</div>
-						<div class="group-right">
-							<div class="field field-name-field-page-intro">
-								<div class="intro">
-								</div>
-							</div>
-						<div class="field field-name-body">
-							<div class="field-expander field-expander-0">
-								<div class="details">
+						<div class="l-content">					
+							<div class="group-left-about">
+								<div class="field field-name-field-page-background" style="width:95%;">
 									<?php 
 										get_template_part( 'content', 'page' );
 
@@ -52,8 +44,8 @@
 									?>	
 								</div>
 							</div>
-						</div>
-						</div>&nbsp;
+							<div class="group-right-about" style="background:url('<?php echo $src[0];?>') no-repeat;background-size: 100% 600px;height:600px;" >																												
+							</div>
 						</div>
 						
 					</div><!-- #content-2 -->

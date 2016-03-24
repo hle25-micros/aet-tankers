@@ -17,7 +17,9 @@
 	<div id="content" class="site-content">
 	   <main id="main" class="clearfix <?php echo $himalayas_layout; ?>">
 	      <div class="tg-container">
-
+				<div class="section-title-wrapper">
+					<h2 class="main-title"><?php echo get_the_title(); ?></h2>
+				</div>
 				<div id="primary">
 					<div id="content-2">
 						<?php while ( have_posts() ) : the_post();

@@ -15,20 +15,19 @@
 <div id="content" class="site-content">
    <main id="main" class="clearfix <?php echo $himalayas_layout; ?>">
     <div class="tg-container">
-  
-    <div class="archive-header">
-				<h1 class="archive-title"><?php
-					if ( is_day() ) :
-						printf( __( 'Daily News Archives: %s' ), '<span>' . get_the_date() . '</span>' );
-					elseif ( is_month() ) :
-						printf( __( 'Monthly News Archives: %s' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'twentytwelve' ) ) . '</span>' );
-					elseif ( is_year() ) :
-						printf( __( 'Yearly News Archives: %s' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'twentytwelve' ) ) . '</span>' );
-					else :
-						_e( 'News' );
-					endif;
-				?></h1>
-    </div> <!-- .archive-header -->
+		<div class="section-title-wrapper">
+					<h2 class="main-title"><?php
+						if ( is_day() ) :
+							printf( __( 'Daily News Archives: %s' ), get_the_date() );
+						elseif ( is_month() ) :
+							printf( __( 'Monthly News Archives: %s' ),  get_the_date( _x( 'F Y', 'monthly archives date format', 'twentytwelve' ) )  );
+						elseif ( is_year() ) :
+							printf( __( 'News in %s' ),   get_the_date( _x( 'Y', 'yearly archives date format', 'twentytwelve' ) )  );
+						else :
+							_e( 'News' );
+						endif;
+					?></h2>
+		</div> <!-- .archive-header -->
   <style type="text/css"> 
 /***<add>***/
 .portelement_2 div.right-block div h3 a {
@@ -62,8 +61,8 @@
 /***</add>***/
 .portelement_2 {
 	position: relative;
-	width:95%; 
-	margin:5px 0px 5px 0px;
+	width:99%; 
+	margin:0px 2px 0px 2px;
 	padding:2%;
 	clear:both;
 	overflow: hidden;
@@ -330,6 +329,40 @@
 #huge_it_portfolio_content_2 #huge_it_portfolio_container_2 {
     }
 </style>
+<div id="tab_container_597">
+	<ul class="wpsm_nav wpsm_nav-tabs" role="tablist" id="myTab_597">		
+		<?php
+    // Get years that have posts
+    $years = $wpdb->get_results( "SELECT YEAR(post_date) AS year FROM wp_posts WHERE post_type = 'news' AND post_status = 'publish' GROUP BY year DESC" );
+
+    //  For each year, do the following
+	$current_year = date("Y");
+	$current_node = $_SERVER['REQUEST_URI'];
+	$current_class = "active";
+    foreach ( $years as $year ) {
+		$pos = strpos($current_node, $year->year);
+		if ($pos === false) {
+			// if($current_year==$year->year){
+				// $current_class="active";
+			// }else{
+				$current_class = "";
+			//}
+		}else{$current_class="active";}
+	echo '<li role="presentation" class="'.$current_class.'">
+						<a href="/news/'. $year->year.'">
+							<i class="fa fa-list-alt"></i> '. $year->year.'											
+						</a>
+					</li>';
+    }
+?>
+		<?php 
+		
+			// $current_year = date("Y");
+			// for ($x = $current_year-1; $x > 2009; $x--) {
+				
+			// }
+		?>	
+	</ul>
 <div id="huge_it_portfolio_container_2" class="super-list variable-sizes clearfix hugeitmicro" style="position: relative; overflow: hidden; height: 1006px;">
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     <?php 
@@ -364,12 +397,11 @@
 					</div>
 				</div>
 			</div>
-	
-	
       <!-- post -->
       
     <?php endwhile; ?>
 	</div>
+</div>	
     <script>
 jQuery(function(){
 var defaultBlockWidth=240;
